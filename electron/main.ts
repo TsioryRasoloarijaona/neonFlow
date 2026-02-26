@@ -332,6 +332,7 @@ ipcMain.handle('notification:show', async (_, { title, body }) => {
 
 // App lifecycle
 app.whenReady().then(() => {
+   app.setName("NeonFlow") 
   initDB()
   initRepositories()
   createWindow()

@@ -98,7 +98,10 @@
         "AppImage",
         "deb"
       ],
-      "icon": "assets/icon.png",
+      "desktop": {
+        "StartupWMClass": "NeonFlow"
+      },
+      "icon": "assets/icons",
       "category": "Office",
       "maintainer": "Tsiory <hei.tsiory@gmail.com>",
       "vendor": "NeonFlow",
