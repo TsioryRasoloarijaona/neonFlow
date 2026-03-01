@@ -21,7 +21,7 @@ const menuItems = [
 export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
   return (
     <aside className={`
-      w-20 flex flex-col items-center py-4 
+      w-20 flex flex-col items-center py-4
       border-r border-[rgba(0,0,0,0.08)] dark:border-[rgba(255,255,255,0.08)]
       bg-white dark:bg-[#161B22]
       transition-colors duration-200
@@ -36,7 +36,7 @@ export default function Sidebar({ currentPage, onNavigate }: SidebarProps) {
       </div>
 
       {/* Menu Items */}
-      <nav className="flex-1 flex flex-col gap-1 w-full px-2">
+      <nav className="flex-1 flex flex-col gap-4 w-full px-2">
         {menuItems.map((item) => {
           const Icon = item.icon
           return (

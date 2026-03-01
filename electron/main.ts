@@ -20,14 +20,10 @@ let db: Database.Database
 const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 
 function createWindow() {
-  // Disable the application menu
+
   Menu.setApplicationMenu(null)
   
-  // Set icon path based on environment
-  const iconPath = app.isPackaged
-    ? path.join(process.resourcesPath, 'assets', 'neonFlowLogo_big.png')
-    : path.join(__dirname, '..', 'public', 'assets', 'neonFlowLogo_big.png')
-  
+  const iconPath = path.join(__dirname, '../assets/icon.png')
   mainWindow = new BrowserWindow({
     width: 1400,
     height: 900,
@@ -339,6 +335,7 @@ ipcMain.handle('notification:show', async (_, { title, body }) => {
 
 // App lifecycle
 app.whenReady().then(() => {
+   app.setName("NeonFlow") 
   initDB()
   initRepositories()
   createWindow()
