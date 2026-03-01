@@ -9,6 +9,7 @@ import { NoteRepository } from './database/repositories/NoteRepository.ts'
 import { FocusSessionRepository } from './database/repositories/FocusSessionRepository.ts'
 import { HabitRepository } from './database/repositories/HabitRepository.ts'
 import { AutomationRepository } from './database/repositories/AutomationRepository.ts'
+import { GoalRepository } from './database/repositories/GoalRepository.ts'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -65,6 +66,7 @@ let noteRepo: NoteRepository
 let focusRepo: FocusSessionRepository
 let habitRepo: HabitRepository
 let automationRepo: AutomationRepository
+let goalRepo: GoalRepository
 
 function initRepositories() {
   taskRepo = new TaskRepository(db)
@@ -73,6 +75,7 @@ function initRepositories() {
   focusRepo = new FocusSessionRepository(db)
   habitRepo = new HabitRepository(db)
   automationRepo = new AutomationRepository(db)
+  goalRepo = new GoalRepository(db)
 }
 
 // IPC Handlers - Tasks
@@ -356,4 +359,63 @@ app.on('window-all-closed', () => {
 
 app.on('will-quit', () => {
   db.close()
+})
+
+// IPC Handlers - Goals
+ipcMain.handle('goals:getAll', async () => {
+  try {
+    return { success: true, data: goalRepo.getAll() }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
+})
+
+ipcMain.handle('goals:create', async (_, goal) => {
+  try {
+    return { success: true, data: goalRepo.create(goal) }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
+})
+
+ipcMain.handle('goals:update', async (_, id, updates) => {
+  try {
+    return { success: true, data: goalRepo.update(id, updates) }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
+})
+
+ipcMain.handle('goals:delete', async (_, id) => {
+  try {
+    goalRepo.delete(id)
+    return { success: true }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
+})
+
+ipcMain.handle('goals:addStep', async (_, goalId, step) => {
+  try {
+    return { success: true, data: goalRepo.addStep(goalId, step) }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
+})
+
+ipcMain.handle('goals:updateStep', async (_, stepId, updates) => {
+  try {
+    return { success: true, data: goalRepo.updateStep(stepId, updates) }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
+})
+
+ipcMain.handle('goals:deleteStep', async (_, stepId) => {
+  try {
+    goalRepo.deleteStep(stepId)
+    return { success: true }
+  } catch (error) {
+    return { success: false, error: (error as Error).message }
+  }
 })

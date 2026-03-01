@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { LayoutDashboard, CheckSquare, Target, FileText, Flame, Zap, Settings } from 'lucide-react'
+import { LayoutDashboard, CheckSquare, Target, FileText, Flame, Zap, Settings, Flag } from 'lucide-react'
 
 interface SidebarProps {
   currentPage: string
@@ -13,6 +13,7 @@ const menuItems = [
   { id: 'focus', label: 'Focus', icon: Target },
   { id: 'notes', label: 'Notes', icon: FileText },
   { id: 'habits', label: 'Habits', icon: Flame },
+  { id: 'goals', label: 'Goals', icon: Flag },
   { id: 'automations', label: 'Auto', icon: Zap },
   { id: 'settings', label: 'Settings', icon: Settings }
 ]

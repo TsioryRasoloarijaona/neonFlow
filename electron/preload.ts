@@ -53,6 +53,25 @@ export type Habit = {
   createdAt?: string
 }
 
+export type Goal = {
+  id?: string
+  title: string
+  description?: string
+  deadline?: string
+  steps: GoalStep[]
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type GoalStep = {
+  id?: string
+  goalId: string
+  title: string
+  completed: boolean
+  order: number
+  createdAt?: string
+}
+
 export type Automation = {
   id?: string
   name: string
@@ -121,12 +140,25 @@ const api = {
       ipcRenderer.invoke('automations:update', id, updates),
     delete: (id: string) => ipcRenderer.invoke('automations:delete', id),
   },
+  goals: {
+    getAll: () => ipcRenderer.invoke('goals:getAll'),
+    create: (goal: Omit<Goal, 'id' | 'createdAt' | 'updatedAt' | 'steps'>) => 
+      ipcRenderer.invoke('goals:create', goal),
+    update: (id: string, updates: Partial<Goal>) => 
+      ipcRenderer.invoke('goals:update', id, updates),
+    delete: (id: string) => ipcRenderer.invoke('goals:delete', id),
+    addStep: (goalId: string, step: { title: string; order: number }) => 
+      ipcRenderer.invoke('goals:addStep', goalId, step),
+    updateStep: (stepId: string, updates: Partial<GoalStep>) => 
+      ipcRenderer.invoke('goals:updateStep', stepId, updates),
+    deleteStep: (stepId: string) => ipcRenderer.invoke('goals:deleteStep', stepId),
+  },
   notification: {
     show: (title: string, body: string) => 
       ipcRenderer.invoke('notification:show', { title, body }),
   }
 }
 
-contextBridge.exposeInMainWorld('api', api)
+contextBridge.exposeInMainWorld('electron', api)
 
 export type API = typeof api

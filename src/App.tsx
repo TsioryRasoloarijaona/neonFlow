@@ -7,13 +7,14 @@ import Tasks from './components/pages/Tasks'
 import Focus from './components/pages/Focus.tsx'
 import Notes from './components/pages/Notes.tsx'
 import Habits from './components/pages/Habits.tsx'
+import Goals from './components/pages/Goals.tsx'
 import Automations from './components/pages/Automations.tsx'
 import Settings from './components/pages/Settings.tsx'
 import { CommandPalette } from './components/ui/CommandPalette.tsx'
 import { ToastContainer } from './components/ui/Toast'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
 
-type Page = 'dashboard' | 'tasks' | 'focus' | 'notes' | 'habits' | 'automations' | 'settings'
+type Page = 'dashboard' | 'tasks' | 'focus' | 'notes' | 'habits' | 'goals' | 'automations' | 'settings'
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('dashboard')
@@ -41,6 +42,8 @@ function App() {
         return <Notes selectedNoteId={selectedItemId} />
       case 'habits':
         return <Habits selectedHabitId={selectedItemId} />
+      case 'goals':
+        return <Goals />
       case 'automations':
         return <Automations />
       case 'settings':
